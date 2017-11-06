@@ -293,7 +293,10 @@ namespace FirstREST.Lib_Primavera
 
             Model.Familias myFam = new Model.Familias();
             GcpBEFamilia objFamilia = new GcpBEFamilia();
-            
+
+            GcpBEArtigo objArtigo = new GcpBEArtigo();
+
+            int i = 1;
 
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
@@ -304,31 +307,30 @@ namespace FirstREST.Lib_Primavera
 
                 while (!objList.NoFim())
                 {
-                    art = new Model.Artigo();
                     art.CodArtigo = objList.Valor("artigo");
-                    art.DescArtigo = objList.Valor("descricao");
-                    //System.Diagnostics.Debug.WriteLine("Artigo: " + art.CodArtigo);
-  //                  art.STKAtual = objList.Valor("stkatual");
-                  /*  art.Familia = objList.Valor("familia");
+                    objArtigo = PriEngine.Engine.Comercial.Artigos.Edita(art.CodArtigo);
+                    art = new Model.Artigo();
+                    if (objArtigo.get_Familia() != "null")
+                    {
+                        System.Diagnostics.Debug.WriteLine("Artigo nº: " + i);
+                        objFamilia = PriEngine.Engine.Comercial.Familias.Edita(objArtigo.get_Familia());
+                        art.CodArtigo = objList.Valor("artigo");
+                        art.DescArtigo = objList.Valor("descricao");
 
-                    System.Diagnostics.Debug.WriteLine("Familia: " + art.Familia);
+                        art.Familia = objArtigo.get_Familia();
 
-                   objFamilia = PriEngine.Engine.Comercial.Familias.Edita(objList.Valor("familia"));
-                    art.Familia = objFamilia.get_Familia();*/
-                    
-                    listArts.Add(art);
-                    objList.Seguinte();
+                        listArts.Add(art);
+                        objList.Seguinte();
+                    }
+                    i++;        
                 }
 
                 return listArts;
-
             }
             else
             {
                 return null;
-
             }
-
         }
 
         #endregion Artigo

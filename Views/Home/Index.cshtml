@@ -6,7 +6,21 @@
 
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
     <script>
-        var uri = 'api/artigos/A0001';
+        var uri = 'api/artigos';
+
+        $(document).ready(function () {
+            // Send an AJAX request
+            $.getJSON(uri)
+                .done(function (data) {
+                    // On success, 'data' contains a list of products.
+                    $.each(data, function (key, item) {
+                        // Add a list item for the product.
+                        $('<li>', { text: formatItem(item) }).appendTo($('#artigos'));
+                    });
+                });
+        });
+
+        /*var uri = 'api/artigos/A0001';
 
         $(document).ready(function () {
             // Send an AJAX request
@@ -17,10 +31,21 @@
                 .fail(function (jqXHR, textStatus, err) {
                     $('#artigos').text('Error: ' + err);
                 });
-        });
+        });*/
 
         function formatItem(item) {
             return item.CodArtigo + ': $ ' + item.DescArtigo + ': $ '+ item.Familia;
+        }
+
+        function find() {
+            var id = $('#prodId').val();
+            $.getJSON(uri + '/' + id)
+                .done(function (data) {
+                    $('#artigos').text(formatItem(data));
+                })
+                .fail(function (jqXHR, textStatus, err) {
+                    $('#artigos').text('Error: ' + err);
+                });
         }
 
     </script>
