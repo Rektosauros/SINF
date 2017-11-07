@@ -12,5 +12,9 @@ namespace FirstREST.Controllers
 {
     public class FamiliasController : ApiController
     {
+        public IEnumerable<Lib_Primavera.Model.Artigo> Get(string id)
+        {
+            return Lib_Primavera.PriIntegration.GetArtigoFamilia(id);
+        }
     }
 }

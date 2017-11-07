@@ -302,6 +302,7 @@ namespace FirstREST.Lib_Primavera
             {
 
                 objList = PriEngine.Engine.Comercial.Artigos.LstArtigos();
+                System.Diagnostics.Debug.WriteLine(objList.Valor());
 
                 //System.Diagnostics.Debug.WriteLine(objList);
 
@@ -322,6 +323,8 @@ namespace FirstREST.Lib_Primavera
                         listArts.Add(art);
                         objList.Seguinte();
                     }
+                    else
+                        System.Diagnostics.Debug.WriteLine(i);
                     i++;        
                 }
 
@@ -624,5 +627,74 @@ namespace FirstREST.Lib_Primavera
         }
 
         #endregion DocsVenda
+
+
+        #region Familia
+
+        public static List<Model.Artigo> GetArtigoFamilia(string familia)
+        {
+
+            GcpBEArtigo objArtigo = new GcpBEArtigo();
+            Model.Artigo art = new Model.Artigo();
+            List<Model.Artigo> listArts = new List<Model.Artigo>();
+
+            StdBELista objList;
+
+            int i = 1;
+            String codArt;
+
+            if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
+            {
+
+                if (PriEngine.Engine.Comercial.Familias.Existe(familia) == false)
+
+                {
+                    return null;
+                }
+                else
+                {
+                    objList = PriEngine.Engine.Comercial.Artigos.LstArtigos();
+                    System.Diagnostics.Debug.WriteLine("NUM LINHAS: "+objList.NumLinhas());
+                    while (!objList.NoFim())
+                    {
+                        codArt = objList.Valor("artigo");
+                        objArtigo = PriEngine.Engine.Comercial.Artigos.Edita(codArt);
+                        art = new Model.Artigo();
+                        System.Diagnostics.Debug.WriteLine("HERE");
+                        if (objArtigo.get_Familia() == familia)
+                        {
+                            art.CodArtigo = objList.Valor("artigo");
+                            art.DescArtigo = objList.Valor("descricao");
+                            System.Diagnostics.Debug.WriteLine(art.CodArtigo);
+
+                            art.Familia = objArtigo.get_Familia();
+
+                            System.Diagnostics.Debug.WriteLine("Familia: "+art.Familia);
+
+                           
+
+                            listArts.Add(art);
+                            objList.Seguinte();
+                        }
+                        else
+                        {
+                            System.Diagnostics.Debug.WriteLine("Familia diferente " + i);
+                        }
+                        i++;
+                        
+                    }
+                    return listArts;
+                }
+
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
+        #endregion Familia
+    
     }
 }
