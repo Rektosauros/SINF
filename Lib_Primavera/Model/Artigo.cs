@@ -25,6 +25,8 @@ namespace FirstREST.Lib_Primavera.Model
             set;
         }
 
+        public double Price { get; set; }
+
         public string Familia { get; set; }
 
     }

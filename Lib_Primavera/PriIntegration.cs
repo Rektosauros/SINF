@@ -296,38 +296,45 @@ namespace FirstREST.Lib_Primavera
 
             GcpBEArtigo objArtigo = new GcpBEArtigo();
 
+            String st;
+
             int i = 1;
 
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
 
-                objList = PriEngine.Engine.Comercial.Artigos.LstArtigos();
-                System.Diagnostics.Debug.WriteLine(objList.Valor());
+                //objList = PriEngine.Engine.Comercial.Artigos.LstArtigos();
+                objList = PriEngine.Engine.Consulta("Select Artigo, Descricao, PCMEDIO from ARTIGO WHERE STKActual > 0 AND Familia IS NOT NULL AND(Familia Like 'H%' OR Familia LIKE 'A01' OR Familia LIKE 'COMP')");
+                //System.Diagnostics.Debug.WriteLine(objList.Valor());
 
                 //System.Diagnostics.Debug.WriteLine(objList);
 
                 while (!objList.NoFim())
                 {
                     art.CodArtigo = objList.Valor("artigo");
+                    st = art.CodArtigo;
                     objArtigo = PriEngine.Engine.Comercial.Artigos.Edita(art.CodArtigo);
                     art = new Model.Artigo();
-                    if (objArtigo.get_Familia() != "null")
+                    if (objArtigo.get_Familia() != null)
                     {
-                        System.Diagnostics.Debug.WriteLine("Artigo nº: " + i);
                         objFamilia = PriEngine.Engine.Comercial.Familias.Edita(objArtigo.get_Familia());
-                        art.CodArtigo = objList.Valor("artigo");
-                        art.DescArtigo = objList.Valor("descricao");
+                        art.CodArtigo = objList.Valor("Artigo");
+                        art.DescArtigo = objList.Valor("Descricao");
+                        art.Price = Math.Round(objList.Valor("PCMedio"),2);
+                       // art.STKAtual = objList.Valor("stkactual");
 
-                        art.Familia = objArtigo.get_Familia();
+                        System.Diagnostics.Debug.WriteLine("Artigo nº: " + i + " -> " + art.CodArtigo);
+
+                        //art.Familia = objArtigo.get_Familia();
 
                         listArts.Add(art);
                         objList.Seguinte();
                     }
                     else
-                        System.Diagnostics.Debug.WriteLine(i);
-                    i++;        
+                        objList.Seguinte();
+                    //System.Diagnostics.Debug.WriteLine("Artigo -> " + st);
+                    i++;   
                 }
-
                 return listArts;
             }
             else
@@ -654,22 +661,21 @@ namespace FirstREST.Lib_Primavera
                 else
                 {
                     objList = PriEngine.Engine.Comercial.Artigos.LstArtigos();
-                    System.Diagnostics.Debug.WriteLine("NUM LINHAS: "+objList.NumLinhas());
                     while (!objList.NoFim())
                     {
                         codArt = objList.Valor("artigo");
                         objArtigo = PriEngine.Engine.Comercial.Artigos.Edita(codArt);
                         art = new Model.Artigo();
-                        System.Diagnostics.Debug.WriteLine("HERE");
+                        //System.Diagnostics.Debug.WriteLine("HERE");
                         if (objArtigo.get_Familia() == familia)
                         {
                             art.CodArtigo = objList.Valor("artigo");
                             art.DescArtigo = objList.Valor("descricao");
-                            System.Diagnostics.Debug.WriteLine(art.CodArtigo);
+                            //System.Diagnostics.Debug.WriteLine(art.CodArtigo);
 
                             art.Familia = objArtigo.get_Familia();
 
-                            System.Diagnostics.Debug.WriteLine("Familia: "+art.Familia);
+                            //System.Diagnostics.Debug.WriteLine("Familia: "+art.Familia);
 
                            
 
@@ -678,7 +684,7 @@ namespace FirstREST.Lib_Primavera
                         }
                         else
                         {
-                            System.Diagnostics.Debug.WriteLine("Familia diferente " + i);
+                            objList.Seguinte();
                         }
                         i++;
                         
@@ -692,6 +698,35 @@ namespace FirstREST.Lib_Primavera
                 return null;
             }
 
+        }
+
+        public static List<Model.Familias> getFamilias()
+        {
+            StdBELista objList;
+
+            List<Model.Familias> listFamilias = new List<Model.Familias>();
+
+            if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
+            {
+
+                objList = PriEngine.Engine.Consulta("SELECT Familia, Descricao FROM  FAMILIAS WHERE Familia Like 'H%' or Familia LIKE 'A01' OR Familia LIKE 'COMP'");
+
+                while (!objList.NoFim())
+                {
+                    listFamilias.Add(new Model.Familias
+                    {
+                        Familia = objList.Valor("Familia"),
+                        Descricao = objList.Valor("Descricao"),
+                    });
+                    objList.Seguinte();
+                    
+                }
+                return listFamilias;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         #endregion Familia

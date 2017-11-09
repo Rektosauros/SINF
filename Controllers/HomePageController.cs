@@ -11,9 +11,9 @@ namespace FirstREST.Controllers
         //
         // GET: /HomePage/
 
-        public String Index()
+        public ActionResult Index()
         {
-            return "This is my <b>default<b/> action";
+            return View();
         }
 
         //

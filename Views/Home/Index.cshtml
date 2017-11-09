@@ -13,7 +13,7 @@
 
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
     <script>
-        var uri = 'api/artigos';
+        var uri = 'api/familias';
 
         $(document).ready(function () {
             // Send an AJAX request
@@ -22,7 +22,7 @@
                     // On success, 'data' contains a list of products.
                     $.each(data, function (key, item) {
                         // Add a list item for the product.
-                        $('<li>', { text: formatItem(item) }).appendTo($('#artigos'));
+                        $('<li>', { text: formatCategory(item) }).appendTo($('#artigos'));
                     });
                 });
         });
@@ -42,6 +42,10 @@
 
         function formatItem(item) {
             return item.CodArtigo + ': $ ' + item.DescArtigo + ': $ '+ item.Familia;
+        }
+
+        function formatCategory(item) {
+            return item.Familia + ': $ ' + item.Descricao;
         }
 
         function find() {
