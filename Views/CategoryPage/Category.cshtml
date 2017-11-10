@@ -1,10 +1,13 @@
-﻿@{
-    Layout = null;
+﻿@model FirstREST.Lib_Primavera.Model.Familias
+
+@{
+    ViewBag.Title = "Category";
 }
 
 @{
-    ViewBag.Title = "index";
+    Layout = null;
 }
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -196,8 +199,8 @@
     <script src="~/Scripts/bootstrap.js"></script>
 
     <script>
-        var uri = 'api/familias';
-        
+        var uri = '/api/familias';
+
         $(document).ready(function () {
             // Send an AJAX request
             $.getJSON(uri)
@@ -205,13 +208,13 @@
                     // On success, 'data' contains a list of products.
                     $.each(data, function (key, item) {
                         // Add a list item for the product.
-                        $('#categories').append('<a href="/CategoryPage/Category/' + item.Familia + '" class="list-group-item">' + item.Descricao + '</a>');
+                        $('#categories').append('<a href="#" class="list-group-item">' + item.Descricao + '</a>');
                     });
                 });
         });
 
         $(document).ready(function () {
-            $.getJSON('api/artigos')
+            $.getJSON('/api/familias/@Model.Familia')
                 .done(function (data) {
                     $.each(data, function (key, item) {
                         $("#products").append('<div class="col-lg-4 col-md-6 mb-4">' +
@@ -223,12 +226,12 @@
                                     '</h4>'+
                                     '<h5>'+ item.Price +'€</h5>'+
                                     '<p>Descrição</p>' +
-                                    '<div>' +
+                                    '<div>'+
                                         '<input type="button" value="Add to cart" onclick="" />' +
-                                    '</div>' +
+                                    '</div>'+
                                 '</div>'+
                             '</div>'+
-                        '</div>'); 
+                        '</div>');
                     });
                 });
         });

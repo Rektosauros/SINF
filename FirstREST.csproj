@@ -209,13 +209,13 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\ArtigosController.cs" />
+    <Compile Include="Controllers\CategoryPageController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
     <Compile Include="Controllers\DocCompraController.cs" />
     <Compile Include="Controllers\DocVendaController.cs" />
     <Compile Include="Controllers\FamiliasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -359,6 +359,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\HomePage.cshtml" />
     <Content Include="Views\HomePage\Index.cshtml" />
+    <Content Include="Views\CategoryPage\Category.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
