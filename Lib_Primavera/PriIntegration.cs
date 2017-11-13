@@ -660,7 +660,7 @@ namespace FirstREST.Lib_Primavera
                 }
                 else
                 {
-                    objList = PriEngine.Engine.Comercial.Artigos.LstArtigos();
+                   // objList = PriEngine.Engine.Comercial.Artigos.LstArtigos();
                     objList = PriEngine.Engine.Consulta("Select Artigo, Descricao, PCMEDIO, Familia from ARTIGO WHERE STKActual > 0 AND PCMEDIO > 0 AND Familia LIKE '"+familia+"'");
                     while (!objList.NoFim())
                     {
