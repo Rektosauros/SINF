@@ -311,9 +311,8 @@ namespace FirstREST.Lib_Primavera
 
                 while (!objList.NoFim())
                 {
-                    art.CodArtigo = objList.Valor("artigo");
-                    st = art.CodArtigo;
-                    objArtigo = PriEngine.Engine.Comercial.Artigos.Edita(art.CodArtigo);
+                    st = objList.Valor("artigo");
+                    objArtigo = PriEngine.Engine.Comercial.Artigos.Edita(st);
                     art = new Model.Artigo();
                     if (objArtigo.get_Familia() != null)
                     {

@@ -208,7 +208,7 @@
                     // On success, 'data' contains a list of products.
                     $.each(data, function (key, item) {
                         // Add a list item for the product.
-                        $('#categories').append('<a href="#" class="list-group-item">' + item.Descricao + '</a>');
+                        $('#categories').append('<a href=""/CategoryPage/Category/' + item.Familia + '" class="list-group-item">' + item.Descricao + '</a>');
                     });
                 });
         });
@@ -222,7 +222,7 @@
                                 '<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>'+
                                 '<div class="card-body">'+
                                     '<h4 class="card-title">'+
-                                        '<a href="#">' + item.DescArtigo + '</a>' +
+                                        '<a href="/ItemPage/Index/' + item.CodArtigo + '">'  + item.DescArtigo + '</a>' +
                                     '</h4>'+
                                     '<h5>'+ item.Price +'€</h5>'+
                                     '<p>Descrição</p>' +

@@ -216,6 +216,7 @@
     <Compile Include="Controllers\DocVendaController.cs" />
     <Compile Include="Controllers\FamiliasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ItemPageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -240,6 +241,7 @@
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\shop-homepage.css" />
+    <Content Include="Content\shop-item.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -360,6 +362,7 @@
     <Content Include="Views\HomePage.cshtml" />
     <Content Include="Views\HomePage\Index.cshtml" />
     <Content Include="Views\CategoryPage\Category.cshtml" />
+    <Content Include="Views\ItemPage\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

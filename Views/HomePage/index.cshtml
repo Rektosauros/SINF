@@ -216,10 +216,10 @@
                     $.each(data, function (key, item) {
                         $("#products").append('<div class="col-lg-4 col-md-6 mb-4">' +
                             '<div class="card h-100">'+
-                                '<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>'+
+                                '<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>' +
                                 '<div class="card-body">'+
                                     '<h4 class="card-title">'+
-                                        '<a href="#">' + item.DescArtigo + '</a>' +
+                                        '<a href="/ItemPage/Index/' + item.CodArtigo + '">' + item.DescArtigo + '</a>' +
                                     '</h4>'+
                                     '<h5>'+ item.Price +'€</h5>'+
                                     '<p>Descrição</p>' +
