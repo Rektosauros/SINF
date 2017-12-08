@@ -727,6 +727,42 @@ namespace FirstREST.Lib_Primavera
         }
 
         #endregion Familia
-    
+
+        #region UserProfile;
+
+        public static Lib_Primavera.Model.UserProfile GetUserProf(string userCod)
+        {
+
+            StdBELista objList = new StdBELista();
+
+
+            Model.UserProfile myUser = new Model.UserProfile();
+
+            if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
+            {
+                objList = PriEngine.Engine.Consulta("Select * from UserProfile WHERE UserId LIKE '" + userCod + "'");
+                if (objList.Valor("UserId") != null)
+                {
+                    myUser.UserCod = objList.Valor("UserId").ToString();
+                    myUser.UserName = objList.Valor("UserName");
+                    myUser.Password = objList.Valor("Password");
+                    myUser.Address = objList.Valor("Address");
+                    myUser.PostalCode = objList.Valor("PostalCode");
+                    myUser.Email = objList.Valor("Email");
+                    myUser.CellNumber = objList.Valor("CellNumber");
+
+
+                    return myUser;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+                return null;
+        }
+
+        #endregion
     }
 }

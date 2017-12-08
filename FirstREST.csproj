@@ -217,9 +217,12 @@
     <Compile Include="Controllers\FamiliasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemPageController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\UserProfileController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Lib_Primavera\Model\UserProfile.cs" />
     <Compile Include="Lib_Primavera\Model\Familias.cs" />
     <Compile Include="Lib_Primavera\PriIntegration.cs" />
     <Compile Include="Lib_Primavera\Model\Artigo.cs" />
