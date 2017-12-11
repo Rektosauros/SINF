@@ -727,6 +727,79 @@ namespace FirstREST.Lib_Primavera
         }
 
         #endregion Familia
-    
+
+
+        #region UserProfile;
+
+        public static Lib_Primavera.Model.UserProfile GetUserProf(string userCod)
+        {
+
+            StdBELista objList = new StdBELista();
+
+
+            Model.UserProfile myUser = new Model.UserProfile();
+
+            if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
+            {
+                objList = PriEngine.Engine.Consulta("Select UserId, UserName, Password, Address, PostalCode, Email, CellNumber from UserProfile WHERE UserId LIKE '" + userCod + "'");
+                System.Diagnostics.Debug.WriteLine(objList.Valor("UserId").ToString());
+                if (objList.Valor("UserId") != null)
+                {
+                    myUser.UserCod = objList.Valor("UserId").ToString();
+                    myUser.UserName = objList.Valor("UserName");
+                    myUser.Password = objList.Valor("Password");
+                    myUser.Address = objList.Valor("Address");
+                    myUser.PostalCode = objList.Valor("PostalCode");
+                    myUser.Email = objList.Valor("Email");
+                    myUser.CellNumber = objList.Valor("CellNumber");
+
+
+                    return myUser;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+                return null;
+        }
+
+        #endregion
+
+
+        #region ShoppingCart
+
+        public static List<Model.ShoppingCart> getShoppingCartItems()
+        {
+            StdBELista objList;
+            StdBELista objList2;
+
+            Model.ShoppingCart cart = new Model.ShoppingCart();
+            List<Model.ShoppingCart> cartItems = new List<Model.ShoppingCart>();
+
+            if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
+            {
+                objList = PriEngine.Engine.Consulta("Select CartItemId, ArtigoId, Quantity from ShoppingCart");
+                while (!objList.NoFim())
+                {
+                    cart = new Model.ShoppingCart();
+                    objList2 = PriEngine.Engine.Consulta("Select Descricao From Artigo Where Artigo Like '" + objList.Valor("ArtigoId") + "'");
+
+                    cart.ArtigoID = objList.Valor("ArtigoId");
+                    cart.CartItemID = objList.Valor("CartItemId");
+                    cart.Quantity = objList.Valor("Quantity");
+                    cart.Description = objList2.Valor("Descricao");
+                    System.Diagnostics.Debug.WriteLine("TOZE -> " + cart.ArtigoID);
+                    cartItems.Add(cart);
+                    objList.Seguinte();
+                }
+                return cartItems;
+            }else{
+                return null;
+            }
+        }
+
+        #endregion
     }
 }

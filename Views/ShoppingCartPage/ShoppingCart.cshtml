@@ -1,0 +1,94 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewBag.Title = "ShoppingCart";
+}
+
+<div class="container">
+    <div id="ShoppingCartCard">
+
+    </div>
+</div>
+<footer class="py-5 bg-dark">
+    <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+    </div>
+    <!-- /.container -->
+</footer>
+<!-- Bootstrap core JavaScript -->
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+
+<script>
+
+    var uri = '/api/ShoppingCart';
+
+    $(document).ready(function () {
+        $.getJSON(uri)
+            .done(function (data) {
+                $.each(data, function (key, item) {
+                    $("#ShoppingCartCard").append(
+                        '<div class="row">'+
+                            '<div class="col-lg-12 col-md" id="card">'+
+                                '<div class="card h-100" id="card">'+
+                                    '<div class="card-body" id="ShoppingCartCard">'+
+                                         '<ul class="list-inline">'+
+                                        '<li class="list-inline-item">'+
+                                           '<h4 class="card-title">'+
+                                                '<a href="#">'+item.Description+'</a>'+
+                                            '</h4>'+
+                                            '<p class="card-text">Item code: '+item.ArtigoID+'</p>'+
+                                        '</li>'+
+                                        '<li class="list-inline-item">'+
+                                            '<p id="quantity">Quantity: </p>'+
+                                        '</li>'+
+                                        '<li class="list-inline-item" >'+
+                                            '<input type="text" name="quantity" maxlength="4" value="'+item.Quantity+'" />'+
+                                        '</li>'+
+                                        '<li class="list-inline-item">'+
+                                            '<a href="#">Remove from cart</a>'+
+                                        '</li>'+
+                                    '</ul>'+
+                                '</div>'+
+                            '</div>'+
+                        '</div>'+
+                    '</div>'
+                    );
+                });
+            });
+    });
+</script>
+
+<style>
+#quantity{
+    padding-left: 300px;
+}
+
+li a{
+    padding-left: 50px;
+}
+
+li input{
+    outline: none;
+    outline-color:grey;
+    border-radius:50px;
+    border-color:grey;
+    width:50px;
+    height:30px;
+    text-align: center;
+}
+
+li p{
+    padding-left:75px;
+}
+
+#card{
+     margin-top:20px;
+    margin-bottom:30px;
+}
+</style>
+
+</body>
+</html>
