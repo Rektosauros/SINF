@@ -218,10 +218,13 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemPageController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ShoppingCartController.cs" />
+    <Compile Include="Controllers\ShoppingCartPageController.cs" />
     <Compile Include="Controllers\UserProfileController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Lib_Primavera\Model\ShoppingCart.cs" />
     <Compile Include="Lib_Primavera\Model\UserProfile.cs" />
     <Compile Include="Lib_Primavera\Model\Familias.cs" />
     <Compile Include="Lib_Primavera\PriIntegration.cs" />
@@ -367,6 +370,9 @@
     <Content Include="Views\CategoryPage\Category.cshtml" />
     <Content Include="Views\ItemPage\Index.cshtml" />
     <Content Include="Views\Home\ViewPage1.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Login\UserDashBoard.cshtml" />
+    <Content Include="Views\ShoppingCartPage\ShoppingCart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

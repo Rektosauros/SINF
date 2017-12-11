@@ -23,9 +23,18 @@ namespace FirstREST.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(UserProfile objUser)
         {
+            //StdBELista objList = PriEngine.Engine.Consulta("SELECT Descricao from FAMILIAS WHERE Familia LIKE 'COMP'");
+            StdBELista objList = PriEngine.Engine.Consulta("SELECT UserId from USERPROFILE WHERE UserName LIKE 'Jaquim' AND Password LIKE 'teste'");
+            System.Diagnostics.Debug.WriteLine("1 "+ objList.Valor("UserId"));
             if (ModelState.IsValid)
             {
-                StdBELista objList = PriEngine.Engine.Consulta("SELECT UserId from UserProfile WHERE UserName LIKE '"+objUser.UserName+" AND Password LIKE '"+objUser.Password+"'");
+                System.Diagnostics.Debug.WriteLine("2 "+ objList.Valor("UserId"));
+
+
+               
+               // System.Diagnostics.Debug.WriteLine("USER ID das " + objList.Valor("Descricao"));
+                
+               // System.Diagnostics.Debug.WriteLine("USER ID "+objList.Valor("UserId"));
                 if (objList.Valor("UserId") != null)
                 {
                     UserProfile tempUser = Lib_Primavera.PriIntegration.GetUserProf(objUser.UserCod);
@@ -35,6 +44,14 @@ namespace FirstREST.Controllers
                 }
             }
             return View(objUser);
+        }
+
+        public ActionResult UserDashBoard()
+        {
+            if (Session["UserID"] != null)
+                return View();
+            else
+                return RedirectToAction("Login");
         }
        
     }
