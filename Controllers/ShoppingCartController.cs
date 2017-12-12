@@ -27,18 +27,61 @@ namespace FirstREST.Controllers
         }
 
         // POST api/<controller>
-        public void Post([FromBody]string value)
+        public HttpResponseMessage Post(string artId)
         {
+            Lib_Primavera.Model.RespostaErro erro = new Lib_Primavera.Model.RespostaErro();
+
+            try
+            {
+                erro = Lib_Primavera.PriIntegration.CreateCartItem(artId);
+                if (erro.Erro == 0)
+                    return Request.CreateResponse(HttpStatusCode.OK, erro.Descricao);
+                else
+                    return Request.CreateResponse(HttpStatusCode.NotFound, erro.Descricao);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, erro.Descricao);
+            }
         }
 
         // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        public HttpResponseMessage Put(int id, int qty)
         {
+            Lib_Primavera.Model.RespostaErro erro = new Lib_Primavera.Model.RespostaErro();
+
+            try
+            {
+                erro = Lib_Primavera.PriIntegration.UpdateItemQty(id, qty);
+                if (erro.Erro == 0)
+                    return Request.CreateResponse(HttpStatusCode.OK, erro.Descricao);
+                else
+                    return Request.CreateResponse(HttpStatusCode.NotFound, erro.Descricao);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, erro.Descricao);
+            }
         }
 
         // DELETE api/<controller>/5
-        public void Delete(int id)
+        public HttpResponseMessage Delete(int id)
         {
+            Lib_Primavera.Model.RespostaErro erro = new Lib_Primavera.Model.RespostaErro();
+
+            try
+            {
+                erro = Lib_Primavera.PriIntegration.DeleteShoppingCartItem(id);
+                System.Diagnostics.Debug.WriteLine(erro.Descricao);
+                if (erro.Erro == 0)
+                    return Request.CreateResponse(HttpStatusCode.OK, erro.Descricao);
+                else
+                    return Request.CreateResponse(HttpStatusCode.NotFound, erro.Descricao);
+            }
+            catch(Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, erro.Descricao);
+            }
         }
     }
 }

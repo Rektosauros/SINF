@@ -12,6 +12,7 @@ namespace FirstREST.Lib_Primavera
 {
     public class PriIntegration
     {
+
         
 
         # region Cliente
@@ -797,6 +798,137 @@ namespace FirstREST.Lib_Primavera
                 return cartItems;
             }else{
                 return null;
+            }
+        }
+        
+        
+        public static Lib_Primavera.Model.RespostaErro DeleteShoppingCartItem(int CartItemId)
+        {
+            Model.ShoppingCart cart = new Model.ShoppingCart();
+            StdBELista objList;
+            Lib_Primavera.Model.RespostaErro erro = new Model.RespostaErro();
+
+            try { 
+                if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
+                {
+                    objList= PriEngine.Engine.Consulta("Select CartItemId, ArtigoId FROM ShoppingCart WHERE CartItemId LIKE '"+CartItemId+"'");
+                    //if(objList.Valor("CartItemId")>0)
+
+                    if (objList.Valor("CartItemId") != null)
+                    {
+                        System.Diagnostics.Debug.WriteLine("STRING " + System.Configuration.ConfigurationManager.ConnectionStrings["PRIDEMOSINF"].ConnectionString);
+                        System.Data.SqlClient.SqlConnection sqlConn = new System.Data.SqlClient.SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["PRIDEMOSINF"].ConnectionString);
+                        System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand();
+                        System.Data.SqlClient.SqlDataReader reader;
+                        
+                        cmd.CommandText = "DELETE FROM dbo.ShoppingCart WHERE CartItemId LIKE '"+CartItemId+"'";
+                        cmd.CommandType = System.Data.CommandType.Text;
+                        cmd.Connection = sqlConn;
+                        sqlConn.Open();
+                        reader = cmd.ExecuteReader();
+                        sqlConn.Close();
+                        
+                        erro.Erro = 0;
+                        erro.Descricao = "Sucesso";
+                        return erro;
+                    }
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine("in delet 5f");
+                        erro.Erro = 1;
+                        erro.Descricao = "Cart Item doesn't exist";
+                        return erro;
+                    }
+                }
+                else
+                {
+                    erro.Erro = 1;
+                    erro.Descricao = "Error opening the company";
+                    return erro;
+                }
+            }
+            catch (Exception ex)
+            {
+                erro.Erro = 1;
+                erro.Descricao = ex.Message;
+                return erro;
+            }
+        }
+
+        public static Lib_Primavera.Model.RespostaErro UpdateItemQty(int cartItemId, int qty)
+        {
+            Lib_Primavera.Model.RespostaErro erro = new Model.RespostaErro();
+
+            try
+            {
+                if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
+                {
+                    System.Data.SqlClient.SqlConnection sqlConn = new System.Data.SqlClient.SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["PRIDEMOSINF"].ConnectionString);
+                    System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand();
+                    System.Data.SqlClient.SqlDataReader reader;
+
+                    cmd.CommandText = "UPDATE dbo.ShoppingCart SET Quantity='" + qty + "' WHERE CartItemID='" + cartItemId + "'";
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.Connection = sqlConn;
+                    sqlConn.Open();
+                    reader = cmd.ExecuteReader();
+                    sqlConn.Close();
+
+                    erro.Erro = 0;
+                    erro.Descricao = "Sucesso";
+                    return erro;
+                }
+                else
+                {
+                    erro.Erro = 1;
+                    erro.Descricao = "Cart Item does not exist";
+                    return erro;
+                }
+            }
+            catch(Exception ex)
+            {
+                erro.Erro = 1;
+                erro.Descricao = ex.Message;
+                return erro;
+            }
+        }
+
+
+        public static Lib_Primavera.Model.RespostaErro CreateCartItem(string artId)
+        {
+            Lib_Primavera.Model.RespostaErro erro = new Model.RespostaErro();
+
+            try
+            {
+                if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
+                {
+                    System.Data.SqlClient.SqlConnection sqlConn = new System.Data.SqlClient.SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["PRIDEMOSINF"].ConnectionString);
+                    System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand();
+                    System.Data.SqlClient.SqlDataReader reader;
+
+                    cmd.CommandText = "INSERT INTO ShoppingCart(ArtigoId, Quantity) VALUES('"+artId+"',1)";
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.Connection = sqlConn;
+                    sqlConn.Open();
+                    reader = cmd.ExecuteReader();
+                    sqlConn.Close();
+
+                    erro.Erro = 0;
+                    erro.Descricao = "Sucesso";
+                    return erro;
+                }
+                else
+                {
+                    erro.Erro = 1;
+                    erro.Descricao = "Item does not exist";
+                    return erro;
+                }
+            }
+            catch (Exception ex)
+            {
+                erro.Erro = 1;
+                erro.Descricao = ex.Message;
+                return erro;
             }
         }
 

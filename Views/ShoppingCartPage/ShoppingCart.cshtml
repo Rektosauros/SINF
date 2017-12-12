@@ -22,6 +22,38 @@
 <script src="~/Scripts/bootstrap.js"></script>
 
 <script>
+    function deleteItem(id) {
+        console.log("TOZEEE");
+        $.ajax({
+            url: "/api/ShoppingCart/"+id,
+            type: "DELETE",
+            contentType: "application/json",
+            success: function () {
+                location.reload();
+            },
+            error: function () {
+
+            }
+        });
+    }
+
+    function updateQt(ele, id) {
+        if (event.key === 'Enter') {
+            $.ajax({
+                url: "/api/ShoppingCart/" + id + "?qty=" + ele.value,
+                type: "PUT",
+                contentType: "application/json",
+                success: function () {
+                    alert("Item quantity has been updated,");
+                    location.reload;
+                },
+                error: function () {
+
+                }
+            });
+        }
+    }
+
 
     var uri = '/api/ShoppingCart';
 
@@ -45,10 +77,10 @@
                                             '<p id="quantity">Quantity: </p>'+
                                         '</li>'+
                                         '<li class="list-inline-item" >'+
-                                            '<input type="text" name="quantity" maxlength="4" value="'+item.Quantity+'" />'+
+                                            '<input type="text" class="search" name="quantity" maxlength="4" value="'+item.Quantity+'" onkeydown="updateQt(this,'+item.CartItemID+')"/>'+
                                         '</li>'+
                                         '<li class="list-inline-item">'+
-                                            '<a href="#">Remove from cart</a>'+
+                                            '<button onclick="deleteItem(' + item.CartItemID + ')">delete</button>' +
                                         '</li>'+
                                     '</ul>'+
                                 '</div>'+

@@ -244,6 +244,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\aspnet-FirstREST-20131101120300.mdf" />
+    <Content Include="App_Data\aspnet-FirstREST-20131101120300_log.ldf">
+      <DependentUpon>aspnet-FirstREST-20131101120300.mdf</DependentUpon>
+    </Content>
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\shop-homepage.css" />
@@ -335,6 +339,8 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="System.Data.SQLite.dll" />
+    <Content Include="System.Data.SQLite.xml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -375,7 +381,6 @@
     <Content Include="Views\ShoppingCartPage\ShoppingCart.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

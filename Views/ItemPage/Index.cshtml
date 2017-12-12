@@ -27,7 +27,7 @@
                         <p class="card-text">Stock: @Model.STKAtual</p>
                         <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734 </span>
                         stars
-                        <input type="button" id="addToCart" value="Add to cart" onclick="" />
+                        <button onclick="createItemOnCart('@Model.CodArtigo')" >Add to cart</button>
                     </div>
                 </div>
                 <!-- /.card -->
@@ -66,6 +66,21 @@
     <script src="~/Scripts/bootstrap.js"></script>
 
     <script>
+
+        function createItemOnCart(id) {
+            $.ajax({
+                url: "/api/ShoppingCart?artId=" + id,
+                type: "POST",
+                contentType: "application/json",
+                success: function () {
+                    alert("Item added to your Shopping Cart.");
+                },
+                error: function () {
+
+                }
+            });
+        }
+
     var uri = '/api/familias';
 
     $(document).ready(function () {
