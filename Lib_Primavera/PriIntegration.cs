@@ -729,16 +729,16 @@ namespace FirstREST.Lib_Primavera
 
         #endregion Familia
 
-
+/*
         #region UserProfile;
 
-        public static Lib_Primavera.Model.UserProfile GetUserProf(string userCod)
+        public static Lib_Primavera.Model.UserCheckOut GetUserProf(string userCod)
         {
 
             StdBELista objList = new StdBELista();
 
 
-            Model.UserProfile myUser = new Model.UserProfile();
+            Model.UserCheckOut myUser = new Model.UserCheckOut();
 
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
@@ -768,7 +768,7 @@ namespace FirstREST.Lib_Primavera
 
         #endregion
 
-
+        */
         #region ShoppingCart
 
         public static List<Model.ShoppingCart> getShoppingCartItems()

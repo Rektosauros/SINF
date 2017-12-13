@@ -5,7 +5,7 @@ using System.Web;
 
 namespace FirstREST.Lib_Primavera.Model
 {
-    public class UserProfile
+    public class UserCheckOut
     {     
         public string UserCod
         {
@@ -19,7 +19,6 @@ namespace FirstREST.Lib_Primavera.Model
             set;
         }
 
-        public string Password { get; set; }
 
         public string Address { get; set; }
 
